@@ -34,56 +34,54 @@ class StoryBrain {
         choice1: 'Restart',
         choice2: '')
   ];
-  int _storynumber = 0;
+  int _storyNumber = 0;
 
   String getStory() {
-    return _storyData[_storynumber].storyTitle;
+    return _storyData[_storyNumber].storyTitle;
   }
 
   String getChoice1() {
-    return _storyData[_storynumber].choice1;
+    return _storyData[_storyNumber].choice1;
   }
 
   String getChoice2() {
-    return _storyData[_storynumber].choice2;
+    return _storyData[_storyNumber].choice2;
+  }
+
+  void nextStory(int choiceNumber) {
+    if (choiceNumber == 1 && _storyNumber == 0) {
+      _storyNumber = 2;
+    } else if (choiceNumber == 2 && _storyNumber == 0) {
+      _storyNumber = 1;
+    } else if (choiceNumber == 1 && _storyNumber == 1) {
+      _storyNumber = 2;
+    } else if (choiceNumber == 2 && _storyNumber == 1) {
+      _storyNumber = 3;
+    } else if (choiceNumber == 1 && _storyNumber == 2) {
+      _storyNumber = 5;
+    } else if (choiceNumber == 2 && _storyNumber == 2) {
+      _storyNumber = 4;
+    } else if (_storyNumber == 3 || _storyNumber == 4 || _storyNumber == 5) {
+      restart();
+    }
   }
 
   void restart() {
-    _storynumber = 0;
+    _storyNumber = 0;
   }
 
-  void nextStory(int choicenumber) {
-    if (choicenumber == 1) {
-      _storynumber = 2;
-      print("Choice 1 was chosen, hence goto story 2");
-      if (choicenumber == 1) {
-        _storynumber = 4;
-        print("Choice 1 was chosen, hence goto story 4 which is final");
-        restart();
-      } else {
-        _storynumber = 5;
-        print("Choice 1 was chosen, hence goto story 5 which is final");
-        restart();
-      }
-    }
-    if (choicenumber == 2) {
-      _storynumber = 1;
-      print("Choice 2 was chosen, hence goto story 1");
-      if (choicenumber == 1) {
-        _storynumber = 2;
-        print("Choice 2 was chosen, hence goto story 2");
-      } else {
-        _storynumber = 3;
-        print("Choice 2 was chosen, hence goto story 3 which is final");
-        restart();
-      }
+  bool buttonShouldBeVisible() {
+    if (_storyNumber == 0 || _storyNumber == 1 || _storyNumber == 2) {
+      return true;
+    } else {
+      return false;
     }
   }
 }
 
 
-//TODO: Step 25 - Change the storyNumber property into a private property so that only story_brain.dart has access to it. You can do this by right clicking on the name (storyNumber) and selecting Refactor -> Rename to make the change across all the places where it's used.
 
 
 
-//TODO: Step 27 - Create a method called buttonShouldBeVisible() which checks to see if storyNumber is 0 or 1 or 2 (when both buttons should show choices) and return true if that is the case, else it should return false.
+
+
